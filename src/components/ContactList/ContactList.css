@@ -1,0 +1,24 @@
+.ContactList {
+  margin: 10px 0;
+  padding: 0;
+  list-style-type: square;
+}
+
+.ContactList__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  /* border: 1px solid rgba(228, 190, 190, 0.829); */
+}
+
+.ContactList__name {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.ContactList__button {
+  margin-left: 15%;
+  margin-right: auto;
+}

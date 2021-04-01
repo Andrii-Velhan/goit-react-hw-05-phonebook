@@ -1,0 +1,5 @@
+.filterInput:focus,
+.filterInput:hover {
+  border: 2px solid rgb(65, 145, 165);
+  box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+}
