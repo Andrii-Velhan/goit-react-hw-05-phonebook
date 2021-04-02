@@ -23,6 +23,7 @@
 
 .ContactForm__button {
 	cursor: pointer;
+	width: 100%;
 	padding: 8px 15px;
 	background-color: $blue;
 	color: white;
@@ -33,4 +34,8 @@
 	&:hover {
 		background-color: $blue-accent;
 	}
+}
+
+.Label {
+	padding-bottom: 3px;
 }

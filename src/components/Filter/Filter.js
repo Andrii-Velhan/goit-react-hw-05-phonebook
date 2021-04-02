@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import './Filter.css';
+import './Filter.scss';
 import { CSSTransition } from 'react-transition-group'
 
 const Filter = ({ value, onChangeFilter, contacts }) => (
@@ -10,7 +10,7 @@ const Filter = ({ value, onChangeFilter, contacts }) => (
 		unmountOnExit>
 
 		<div className="filterForm">
-			<label htmlFor="find" className="filterLabel">
+			<label htmlFor="find" className="Label filterLabel">
 				Find contact by name
     </label>
 			<input

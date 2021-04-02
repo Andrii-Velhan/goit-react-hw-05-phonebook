@@ -127,8 +127,8 @@ export default class App extends Component {
 
 				<CSSTransition
 					in={contacts.length > 0}
-					timeout={0}
-					ommountOnExit>
+					timeout={500}
+					unmountOnExit>
 					<ContactList
 						contacts={visibleContacts}
 						onDeleteContact={this.deleteContact}
