@@ -7,6 +7,9 @@ import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 // import initialContacts from "./bd/contacts.json";
+import { CSSTransition } from 'react-transition-group';
+import Notification from './components/Notification';
+// import Logo from './components/Logo';
 
 export default class App extends Component {
 	static defaultProps = {
@@ -18,7 +21,15 @@ export default class App extends Component {
 	state = {
 		contacts: [],
 		filter: '',
+		message: null
 	};
+
+	setMessage = (note) => {
+		this.setState({ message: note });
+		setTimeout(() => {
+			this.setState({ message: null });
+		}, 2500);
+	}
 
 	addContact = (name, number) => {
 		const contact = {
@@ -27,14 +38,30 @@ export default class App extends Component {
 			number,
 		};
 
-		this.state.contacts.find(
-			// item => item.name === name,
-			item => item.name.toLowerCase() === name.toLowerCase(),
-		)
-			? alert(`${name} is аlready exists in contacts !!!`)
-			: this.setState(({ contacts }) => ({
-				contacts: [contact, ...contacts],
-			}));
+		if (name === '') {
+			this.setMessage('Enter concact name, please!');
+			return;
+		}
+		if (number === '') {
+			this.setMessage('Enter concact phone number, please!');
+			return;
+		}
+		if (this.state.contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
+			this.setMessage(`${name} is аlready exists in contacts !`);
+			return;
+		}
+		this.setState(prevState => {
+			return { contacts: [...prevState.contacts, contact], };
+		});
+
+		// this.state.contacts.find(
+		// 	// item => item.name === name,
+		// 	item => item.name.toLowerCase() === name.toLowerCase(),
+		// )
+		// 	? alert(`${name} is аlready exists in contacts !!!`)
+		// 	: this.setState(({ contacts }) => ({
+		// 		contacts: [contact, ...contacts],
+		// 	}));
 	};
 
 	deleteContact = contactId => {
@@ -75,7 +102,7 @@ export default class App extends Component {
 	}
 
 	render() {
-		const { filter } = this.state;
+		const { filter, contacts, message } = this.state;
 		const normalizedFilter = filter.toLowerCase();
 		const totalContactsCount = this.state.contacts.length;
 		const visibleContacts =
@@ -87,15 +114,28 @@ export default class App extends Component {
 
 		return (
 			<Container>
+
 				<h1>Phonebook</h1>
+
+				<Notification message={message} />
+
 				<p>Total contacts count: {totalContactsCount}</p>
+
 				<ContactForm onSubmit={this.addContact} />
 				<h2>Contacts</h2>
-				<Filter value={filter} onChangeFilter={this.changeFilter} />
-				<ContactList
-					contacts={visibleContacts}
-					onDeleteContact={this.deleteContact}
-				/>
+
+				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={contacts} />
+
+				<CSSTransition
+					in={contacts.length > 0}
+					timeout={0}
+					ommountOnExit>
+					<ContactList
+						contacts={visibleContacts}
+						onDeleteContact={this.deleteContact}
+					/>
+				</CSSTransition>
+
 			</Container>
 		);
 	}
