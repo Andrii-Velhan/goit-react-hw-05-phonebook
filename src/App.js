@@ -9,7 +9,7 @@ import Filter from './components/Filter';
 // import initialContacts from "./bd/contacts.json";
 import { CSSTransition } from 'react-transition-group';
 import Notification from './components/Notification';
-// import Logo from './components/Logo';
+import Logo from './components/Logo';
 
 export default class App extends Component {
 	static defaultProps = {
@@ -115,14 +115,13 @@ export default class App extends Component {
 		return (
 			<Container>
 
-				<h1>Phonebook</h1>
+				<Logo />
 
 				<Notification message={message} />
 
 				<p>Total contacts count: {totalContactsCount}</p>
 
 				<ContactForm onSubmit={this.addContact} />
-				<h2>Contacts</h2>
 
 				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={contacts} />
 

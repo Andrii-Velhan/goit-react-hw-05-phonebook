@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 // import { v4 as uuidv4 } from 'uuid';
-import './ContactForm.css';
+import './ContactForm.scss';
 import Notification from '../Notification';
 
 class ContactForm extends Component {
@@ -58,18 +58,20 @@ class ContactForm extends Component {
 						className="ContactForm__input"
 						name="name"
 						onChange={this.handleChange}
+						placeholder="Anton Cherny"
 					/>
 
 					<label className="Label" htmlFor="number">
 						Number
           </label>
 					<input
-						type="number"
+						type="tel"
 						value={number}
 						id="number"
 						className="ContactForm__input"
 						name="number"
 						onChange={this.handleChange}
+						placeholder="+38 (090) 000-00-00"
 					/>
 
 					<button type="submit" className="ContactForm__button">

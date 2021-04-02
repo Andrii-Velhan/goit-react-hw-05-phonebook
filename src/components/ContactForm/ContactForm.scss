@@ -1,0 +1,36 @@
+@import "../../styles/colors";
+
+.ContactForm__input {
+	max-width: 100%;
+	margin-bottom: 30px;
+	outline: none;
+	padding: 5px 15px;
+}
+
+.ContactForm__input:focus,
+.ContactForm__input:hover {
+	border: 2px solid rgb(65, 145, 165);
+	box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ContactForm {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 15px;
+	border: 1px solid grey;
+}
+
+.ContactForm__button {
+	cursor: pointer;
+	padding: 8px 15px;
+	background-color: $blue;
+	color: white;
+	border: none;
+	border-radius: 3px;
+
+	&:focus,
+	&:hover {
+		background-color: $blue-accent;
+	}
+}

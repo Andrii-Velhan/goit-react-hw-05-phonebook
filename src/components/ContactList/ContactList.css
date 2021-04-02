@@ -46,7 +46,7 @@
 .ContactList__name {
 	margin-top: 0;
 	margin-bottom: 0;
-	margin-right: 10px;
+	/* margin-right: 10px; */
 }
 
 .ContactList__button {
