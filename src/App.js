@@ -75,6 +75,24 @@ export default class App extends Component {
 		this.setState({ filter: event.currentTarget.value });
 	};
 
+	getVisibleContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+  //   const normalizedContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+  //  console.log(normalizedContacts); 
+    let list = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+    // if (!list.length) list = contacts
+    if (filter !== '' && list.length === 0) {
+      alert('Sorry, nothing was found for your request.');
+    }
+    return list
+  };
+// 	getVisibleContacts = () => {
+// 		const { contacts, filter } = this.state;
+// 		return contacts.filter(contact =>
+// 				contact.name.toLowerCase().includes(filter.toLowerCase()),
+// 		);
+// };
 	// getVisibleContacts = () => {
 	//   const { contacts, filter } = this.state;
 	//   const normalizedFilter = filter.toLowerCase();
@@ -105,12 +123,13 @@ export default class App extends Component {
 		const { filter, contacts, message } = this.state;
 		const normalizedFilter = filter.toLowerCase();
 		const totalContactsCount = this.state.contacts.length;
-		const visibleContacts =
-			normalizedFilter.length > 0
-				? this.state.contacts.filter(contact =>
-					contact.name.toLowerCase().includes(normalizedFilter),
-				)
-				: this.state.contacts;
+		const visibleContacts = this.getVisibleContacts();
+		// const visibleContacts =
+		// 	normalizedFilter.length > 0
+		// 		? this.state.contacts.filter(contact =>
+		// 			contact.name.toLowerCase().includes(normalizedFilter),
+		// 		)
+		// 		: this.state.contacts;
 
 		return (
 			<Container>
@@ -123,10 +142,15 @@ export default class App extends Component {
 
 				<ContactForm onSubmit={this.addContact} />
 
-				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={contacts} />
+				<CSSTransition
+					in={contacts.length > 1}
+					timeout={500}
+					unmountOnExit>
+				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={visibleContacts} />
+				</CSSTransition>
 
 				<CSSTransition
-					in={contacts.length > 0}
+					in={visibleContacts.length > 0}
 					timeout={500}
 					unmountOnExit>
 					<ContactList
