@@ -49,10 +49,10 @@ export default class App extends Component {
 		if (this.state.contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
 			this.setMessage(`${name} is аlready exists in contacts !`);
 			return;
-		}
-		this.setState(prevState => {
-			return { contacts: [...prevState.contacts, contact], };
-		});
+		} else
+		{this.setState(prevState => {
+			return { contacts: [contact, ...prevState.contacts], };
+		});}
 
 		// this.state.contacts.find(
 		// 	// item => item.name === name,
@@ -67,6 +67,7 @@ export default class App extends Component {
 	deleteContact = contactId => {
 		this.setState(prevState => ({
 			contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+			filter: ''
 		}));
 		// console.log(contactId);
 	};
