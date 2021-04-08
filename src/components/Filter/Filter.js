@@ -3,15 +3,15 @@ import './Filter.scss';
 import { CSSTransition } from 'react-transition-group'
 
 const Filter = ({ value, onChangeFilter, contacts }) => (
-	// <CSSTransition
-	// 	in={contacts.length > 1}
-	// 	timeout={250}
-	// 	classNames="Filter-fade"
-	// 	unmountOnExit>
+	<CSSTransition
+		in={contacts.length > 1}
+		timeout={250}
+		classNames="Filter-fade"
+		unmountOnExit>
 
 		<div className="filterForm">
 			<label htmlFor="find" className="Label filterLabel">
-				Find contact by name
+				Find contacts by name
     </label>
 			<input
 				type="text"
@@ -22,7 +22,7 @@ const Filter = ({ value, onChangeFilter, contacts }) => (
 			// onChange={event => onChangeFilter(event.target.value)}
 			/>
 		</div>
-	// </CSSTransition>
+	 </CSSTransition>
 );
 
 Filter.propTypes = {

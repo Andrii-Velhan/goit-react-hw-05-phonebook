@@ -7,7 +7,7 @@ import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 // import initialContacts from "./bd/contacts.json";
-import { CSSTransition } from 'react-transition-group';
+// import { CSSTransition } from 'react-transition-group';
 import Notification from './components/Notification';
 import Logo from './components/Logo';
 
@@ -49,19 +49,10 @@ export default class App extends Component {
 		if (this.state.contacts.find((item) => item.name.toLowerCase() === name.toLowerCase())) {
 			this.setMessage(`${name} is аlready exists in contacts !`);
 			return;
-		} else
-		{this.setState(prevState => {
+		} 
+		this.setState(prevState => {
 			return { contacts: [contact, ...prevState.contacts], };
-		});}
-
-		// this.state.contacts.find(
-		// 	// item => item.name === name,
-		// 	item => item.name.toLowerCase() === name.toLowerCase(),
-		// )
-		// 	? alert(`${name} is аlready exists in contacts !!!`)
-		// 	: this.setState(({ contacts }) => ({
-		// 		contacts: [contact, ...contacts],
-		// 	}));
+		});
 	};
 
 	deleteContact = contactId => {
@@ -83,27 +74,11 @@ export default class App extends Component {
   //  console.log(normalizedContacts); 
     let list = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
     // if (!list.length) list = contacts
-    if (filter !== '' && list.length === 0) {
-      alert('Sorry, nothing was found for your request.');
-    }
+    // if (filter !== '' && list.length === 0) {
+    //  alert('Sorry, nothing was found for your request.');
+    // }
     return list
   };
-// 	getVisibleContacts = () => {
-// 		const { contacts, filter } = this.state;
-// 		return contacts.filter(contact =>
-// 				contact.name.toLowerCase().includes(filter.toLowerCase()),
-// 		);
-// };
-	// getVisibleContacts = () => {
-	//   const { contacts, filter } = this.state;
-	//   const normalizedFilter = filter.toLowerCase();
-
-	//   return normalizedFilter.length > 0
-	//     ? this.state.contacts.filter(contact =>
-	//         contact.name.toLowerCase().includes(normalizedFilter),
-	//       )
-	//     : this.state.contacts;
-	// };
 
 	componentDidMount() {
 		const contacts = localStorage.getItem('contacts');
@@ -122,16 +97,9 @@ export default class App extends Component {
 
 	render() {
 		const { filter, contacts, message } = this.state;
-		const normalizedFilter = filter.toLowerCase();
 		const totalContactsCount = this.state.contacts.length;
 		const visibleContacts = this.getVisibleContacts();
-		// const visibleContacts =
-		// 	normalizedFilter.length > 0
-		// 		? this.state.contacts.filter(contact =>
-		// 			contact.name.toLowerCase().includes(normalizedFilter),
-		// 		)
-		// 		: this.state.contacts;
-
+		
 		return (
 			<Container>
 
@@ -143,22 +111,13 @@ export default class App extends Component {
 
 				<ContactForm onSubmit={this.addContact} />
 
-				<CSSTransition
-					in={contacts.length > 1}
-					timeout={500}
-					unmountOnExit>
-				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={visibleContacts} />
-				</CSSTransition>
-
-				<CSSTransition
-					in={visibleContacts.length > 0}
-					timeout={500}
-					unmountOnExit>
-					<ContactList
+				<Filter value={filter} onChangeFilter={this.changeFilter} contacts={contacts} />
+			
+				<ContactList
 						contacts={visibleContacts}
 						onDeleteContact={this.deleteContact}
 					/>
-				</CSSTransition>
+			
 
 			</Container>
 		);
